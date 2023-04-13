@@ -1,5 +1,6 @@
 import uvicorn
 
+from utils import *
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -22,13 +23,13 @@ def read_root():
 # allow user to choose a model
 @app.get("/models")
 def read_model():
-    return {"models": "list of models"}
+    return get_models()
 
 
 # allow user to choose a model
-@app.get("/models/{model_name}")
-def read_model(model_name: str):
-    return {"model": model_name}
+@app.get("/models/{model_id}")
+def read_model(model_id: int):
+    return get_model(model_id)
 
 
 # allow user to post all input features and receive a prediction
