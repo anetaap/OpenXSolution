@@ -7,6 +7,10 @@ data = fetch_covtype()
 # split the data
 X_train, X_test, y_train, y_test = split_data(data)
 
+# save list of feature names for later use to pickle
+with open('models/feature_names.pkl', 'wb') as f:
+    pickle.dump(data.feature_names, f)
+
 # convert the data to pandas dataframe for heuristic model
 x_train = pd.DataFrame(X_train, columns=data.feature_names)
 x_test = pd.DataFrame(X_test, columns=data.feature_names)

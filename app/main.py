@@ -1,6 +1,7 @@
 import uvicorn
 
-from utils import *
+from app.utils import *
+from app.schemas import *
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -33,9 +34,10 @@ def read_model(model_id: int):
 
 
 # allow user to post all input features and receive a prediction
-@app.post("/models/{model_name}/predict")
-def predict():
-    return {"prediction": "prediction"}
+@app.post("/models/predict")
+def predict(data: Data, model_id: int):
+    prediction = predict_new_data(model_id, data)
+    return {"predicted value": prediction}
 
 
 if __name__ == "__main__":
