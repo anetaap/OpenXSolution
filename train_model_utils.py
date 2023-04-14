@@ -2,9 +2,10 @@ import pickle
 
 import numpy as np
 import pandas as pd
+import seaborn as sns
 
 from matplotlib import pyplot as plt
-from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
@@ -149,7 +150,18 @@ def plot_training_curves(history):
     plt.xlabel('Epoch #')
     plt.ylabel('Loss/Accuracy')
     plt.legend(loc='lower left')
-    plt.savefig('images/training_curves.png')
+    plt.savefig('images/neural_network_training_curves.png')
+    plt.show()
+
+
+# define a function that will plot the confusion matrix
+def plot_confusion_matrix(cm, model_name):
+    plt.figure()
+    sns.heatmap(cm, annot=True, fmt='d')
+    plt.title(f'Confusion Matrix for {model_name}')
+    plt.xlabel('Predicted Label')
+    plt.ylabel('True Label')
+    plt.savefig(f'images/{model_name}_confusion_matrix.png')
     plt.show()
 
 
@@ -175,6 +187,11 @@ def evaluate_model(model, X_test, y_test, model_name):
     # save the results
     results = pd.DataFrame({'accuracy': accuracy, 'precision': precision, 'recall': recall, 'f1': f1}, index=[0])
     results.to_csv(f'results/{model_name}.csv', index=False)
+    # create a confusion matrix
+    cm = confusion_matrix(y_test, predictions)
+    # plot the confusion matrix
+    plot_confusion_matrix(cm, model_name)
+
     return results
 
 

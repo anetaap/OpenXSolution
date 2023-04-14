@@ -4,13 +4,19 @@ import pickle
 import numpy as np
 
 # load the models
-# hm = pickle.load(open('models/heuristic_model.pkl', 'rb'))
+hm = pickle.load(open('models/heuristic_model.pkl', 'rb'))
 dt = pickle.load(open('models/decision_tree.pkl', 'rb'))
 rm = pickle.load(open('models/random_forest.pkl', 'rb'))
-# nn = load_model('models/neural_network1.h5')
+nn = load_model('models/neural_network.h5')
 
 # load models comparison results/models_comparison.csv
 models_comparison = pd.read_csv('results/models_comparison.csv', index_col=0)
+
+# load results for each model
+hm_results = pd.read_csv('results/Heuristic-Model.csv', index_col=0)
+dt_results = pd.read_csv('results/Decision-Tree.csv', index_col=0)
+rm_results = pd.read_csv('results/Random-Forest.csv', index_col=0)
+nn_results = pd.read_csv('results/Neural-Network.csv', index_col=0)
 
 
 # define get models function
@@ -22,15 +28,15 @@ def get_models():
 # define get model function
 def get_model(model_id):
     if model_id == 1:
-        return hm
+        return hm_results
     elif model_id == 2:
-        return dt
+        return dt_results
     elif model_id == 3:
-        return rm
+        return rm_results
     elif model_id == 4:
-        return nn
+        return nn_results
     else:
-        return None
+        return {"The model does not exist"}
 
 
 # define a function that will make predictions on new data

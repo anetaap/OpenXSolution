@@ -21,12 +21,12 @@ dt = decision_tree(X_train, y_train)
 rm = random_forest(X_train, y_train)
 
 # train neural network
-nn, nn_history = neural_network(X_train, y_train)
+# nn, nn_history = neural_network(X_train, y_train)
 # load the best model
-# nn = load_model('models/neural_network.h5')
+nn = load_model('models/neural_network.h5')
 
 # Plot training curves for the best hyperparameter
-plot_training_curves(nn.history)
+# plot_training_curves(nn.history)
 # evaluate the models
 hm_score = evaluate_model(hm, x_test, y_test, "Heuristic-Model")
 dt_score = evaluate_model(dt, X_test, y_test, "Decision-Tree")
